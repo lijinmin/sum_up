@@ -53,4 +53,10 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  namespace :weixin do 
+    resources :first_app do
+      get 'index'
+      get 'show'
+    end
+  end
 end
