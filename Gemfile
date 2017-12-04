@@ -49,3 +49,6 @@ end
 
 
 gem 'unicorn'
+
+gem 'rest-client'
+gem 'redis'

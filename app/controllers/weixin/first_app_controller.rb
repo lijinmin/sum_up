@@ -1,5 +1,6 @@
 # 第一个微信应用
 class Weixin::FirstAppController < Weixin::BaseController
+	before_filter :app_agentid
 	before_filter :user_authorization
 	def index
 		
@@ -10,8 +11,8 @@ class Weixin::FirstAppController < Weixin::BaseController
 	end
 	private
 
-	# 该微信应用对应的secret
-	def app_secret
-		session[:secret] = Weixin::Configuration.first_app_secret
+	# 该微信应用对应的agentid
+	def app_agentid
+		session[:agentid] = Weixin.config.first_app_agentid
 	end
 end

@@ -4,8 +4,9 @@ class Weixin::BaseController  < ActionController::Base
 	# 当前用户
 	def current_user
 	      if session[:user_id]
-	        	@current_user = User.find_by_id(session[:user_id])
+	        	@current_user = Weixin::User.find_by_id(session[:user_id])
 	      end		
+	      @current_user = Weixin::User.first # 测试用
 	end
 
 	def user_authorization
@@ -18,10 +19,11 @@ class Weixin::BaseController  < ActionController::Base
 	# 通过网页授权接口可以获取到当前用户的UserId信息
 	# 获取code
 	def auth
-		    corpid = WX_APPID
-		    url = "#{CALLBACK_DOMAIN}/mobile_login/call_back"
+		    corpid = Weixin.config.corpid
+		    agentid = session[:agentid]
+		    url = "#{Weixin.config.callback_domain}/mobile_login/call_back"
 		    url = url.gsub(/[^a-zA-Z0-9_\-.]/n){ sprintf("%%%02X", $&.unpack("C")[0]) }
-		    wx_reurl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=#{corpid}&redirect_uri=#{url}&response_type=code&scope=snsapi_userinfo&state=#wechat_redirect"
+		    wx_reurl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=#{corpid}&redirect_uri=#{url}&response_type=code&scope=snsapi_userinfo&agentid=agentid&state=#wechat_redirect"
 
 		    redirect_to wx_reurl
 	end
@@ -29,7 +31,8 @@ class Weixin::BaseController  < ActionController::Base
 	# 根据code获取成员信息
 	def call_back
 		code = params[:code]
-		session[:user_id]
+		agentid = session[:agentid]
+		session[:user_id] = Weixin.get_userid(code,agentid)
 		redirect_to session[:path]
 	end
 end
