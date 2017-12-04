@@ -55,8 +55,10 @@ Rails.application.routes.draw do
   #   end
   namespace :weixin do 
     resources :first_app do
-      get 'index'
-      get 'show'
+      collection do
+        get 'index'
+        get 'show'
+      end
     end
   end
 end
