@@ -52,3 +52,20 @@ production:
   database: weixin_cor_production
   username: weixin_cor
   password: <%= ENV['DEMO_DATABASE_PASSWORD'] %>
+
+weixin: &weixin
+  adapter: mysql2
+  encoding: utf8
+  # reconnect: false
+  database: weixin
+  pool: 5
+  username: root
+  password: 
+  # host: 127.0.0.1
+# weixin:
+#   development:
+#     <<: *weixin
+#   test:
+#     <<: *weixin
+#   production:
+#     <<: *weixin
