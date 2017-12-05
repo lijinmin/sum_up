@@ -22,13 +22,23 @@ module Weixin
 		 	access_token = save_access_token(agentid)
 		 	return access_token
 		 else
+		 	return str.split(',')[0]
 		 end
 	end
 
+	# 通过code获取user
 	def self.get_userid(code,agentid)
 		access_token = access_token(agentid)
 		user_info =get("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token=#{access_token}&code=#{code}")
 		return user_info['UserId']
+	end
+
+	# 发送文本消息
+	def self.send_text_message(options={'touser'=>'LiJinMin','agentid'=>'1000002','content'=>'hahahaha'})
+		access_token = access_token(options['agentid'])
+		url = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=#{access_token}"
+		data = data = '{"touser":"' + options['touser'] + '", "msgtype":"text", "agentid":"'+options['agentid']+'", "text": { "content":"' + options['content'] + '"}}'
+		post(url,data)
 	end
 
 
@@ -53,6 +63,11 @@ module Weixin
 	def self.get(url)
 		client = RestClient::Request.execute :method => :get, :url => url, :ssl_version => 'TLSv1'
 		return JSON.parse(client.body)
+	end
+
+	def self.post(url,json_data)
+		response = RestClient.post(url, json_data, :content_type => :json)
+		return JSON.parse(response.body)
 	end
 
 end

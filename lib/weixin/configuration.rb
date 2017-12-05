@@ -12,14 +12,6 @@ module Weixin
 		# access_token是企业后台去企业微信的后台获取信息时的重要票据
 		config_accessor :access_token
 
-		def self.get_token
-			
-		end
-
-		def self.get
-			
-		end
-
 
 	end
 end
