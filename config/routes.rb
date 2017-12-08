@@ -58,6 +58,8 @@ Rails.application.routes.draw do
       collection do
         get 'index'
         get 'show'
+        get 'new'
+        get 'send_message'
       end
     end
   end

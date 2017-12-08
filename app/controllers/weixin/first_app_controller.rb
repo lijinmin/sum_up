@@ -9,6 +9,18 @@ class Weixin::FirstAppController < Weixin::BaseController
 	def show
 		
 	end
+
+	def new
+		
+	end
+
+	def send_message
+		options = params['options']
+		options.store('touser','LiJinMin')
+		options.store('agentid',session[:agentid])
+		Weixin.send_text_message(options)
+		redirect_to :action=>"index"
+	end
 	private
 
 	# 该微信应用对应的agentid
