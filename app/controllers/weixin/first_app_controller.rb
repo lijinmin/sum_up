@@ -15,14 +15,14 @@ class Weixin::FirstAppController < Weixin::BaseController
 	end
 
 	def send_message
-		# options = params['options']
-		# options.store('touser','LiJinMin')
-		# options.store('agentid',session[:agentid])
-		# Weixin.send_text_message(options)
+		options = params['options']
+		options.store('touser','LiJinMin')
+		options.store('agentid',session[:agentid])
+		Weixin.send_text_message(options)
 
-		options = {'content'=>'asdfsd','email'=>'lijinmin3903@126.com'}
-		logger.info "--------#{options}---------------------"
-		UserMailer.send_email(options).deliver_now
+		# options = {'content'=>'asdfsd','email'=>'lijinmin3903@126.com'}
+		# logger.info "--------#{options}---------------------"
+		UserMailer.send_email(options).deliver
 		redirect_to :action=>"index"
 	end
 	private
