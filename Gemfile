@@ -52,3 +52,10 @@ gem 'unicorn'
 
 gem 'rest-client'
 gem 'redis'
+
+# spider
+gem 'iconv'
+gem 'hpricot'
+gem 'json'
+gem 'mechanize'
+gem 'httpclient'

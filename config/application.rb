@@ -25,5 +25,6 @@ module WeixinCor
 
     config.autoload_paths += ["#{config.root}/lib"]
     config.autoload_paths += ["#{config.root}/lib/weixin"]
+    config.autoload_paths += ["#{config.root}/lib/spider"]
   end
 end

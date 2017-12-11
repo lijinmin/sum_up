@@ -63,4 +63,11 @@ Rails.application.routes.draw do
       end
     end
   end
+  namespace :spider do 
+    resources :first_app do
+      collection do
+        get 'spider'
+      end
+    end
+  end  
 end

@@ -14,5 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require js/bootstrap.js
+//= require echarts.js
 //= require_tree .
 

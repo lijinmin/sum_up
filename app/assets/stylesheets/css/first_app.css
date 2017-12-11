@@ -48,3 +48,26 @@
     color: #fff;
     box-shadow: inset 0 0 15px 0 rgba(0,0,0,.6);
 }
+.hotel_info {
+  position: relative;
+  padding: 10px 0 40px 0;
+  background: #262f36;
+  z-index: 1;
+  color: rgb(255,255,255);
+}
+li.odd {
+  background: #262f36;
+  border: 1px solid #262f36;
+}
+li.even {
+  background: rgba(0,0,0,.15);
+  border: 1px solid #262f36;
+}
+.i_label {
+    border: 1px solid #262f36;
+    padding-right: 5px;
+}
+.hotel_name {
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
