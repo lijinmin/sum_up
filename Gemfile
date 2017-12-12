@@ -59,3 +59,9 @@ gem 'hpricot'
 gem 'json'
 gem 'mechanize'
 gem 'httpclient'
+# 分页
+gem 'kaminari'
+# es
+gem 'elasticsearch'
+gem 'elasticsearch-rails'
+gem 'elasticsearch-model'
