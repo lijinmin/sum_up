@@ -71,3 +71,10 @@ li.even {
     margin-top: 0px;
     margin-bottom: 10px;
 }
+.clerk_info {
+  position: relative;
+  padding-left: 110px;
+  background: #262f36;
+  z-index: 1;
+  color: rgb(255,255,255);  
+}

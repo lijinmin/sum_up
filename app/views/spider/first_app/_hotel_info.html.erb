@@ -1,0 +1,21 @@
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<ul class="list-group">
+					<li class="list-group-item odd">&nbsp;<h3 class=""><%=@res.hotel_name%></h3></li>
+					<li class="list-group-item even">&nbsp;<span><%=@res.adress%></span></li>
+					<li class="list-group-item odd">&nbsp;<span><%=@res.comment_score["score"]%>&nbsp;&nbsp;<%=@res.comment_score["num"]%></span></li>
+					<li class="list-group-item even">&nbsp;
+					<%@res.flags.each do |i|%>
+						<i class="i_label"><%=i%></i>
+					<%end%>
+					</li>
+					<li class="list-group-item odd">&nbsp;<span><%=@res.introduction%></span></li>
+					
+				</ul>
+			</div>
+			<div class="col-md-6" id="opt1" style="height: 380px;padding-top: 60px;">
+				
+			</div>
+		</div>
+	</div>

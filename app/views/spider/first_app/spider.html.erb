@@ -20,12 +20,12 @@
 	<div class="container">
 		<h3 class="text-center">Let’s have a quick start!</h3>
 		<div class="separator"></div>
-		<form class="form-horizontal" role="form">
+		<form class="form-horizontal" >
 		  <div class="form-group">
 		    <!-- <label class="sr-only" for="name">Url</label> -->
-		    <div class="col-md-offset-2 col-md-9"><input type="text" class="form-control" id="name" placeholder="url"></div>
+		    <div class="col-md-offset-2 col-md-9"><input type="text" class="form-control" id="url" name="url" placeholder="url"></div>
 		    <div class="col-md-1">
-		    	<button type="submit" class="btn btn-default btn-dark-blue "><span class="glyphicon glyphicon-ok"></span></button>
+		    	<button type="button" id="form" class="btn btn-default btn-dark-blue "><span class="glyphicon glyphicon-ok"></span></button>
 		    </div>
 		  </div>
 		</form>
@@ -47,7 +47,7 @@
 					
 				</ul>
 			</div>
-			<div class="col-md-6" id="opt1" style="height: 380px;padding-top: 50px;">
+			<div class="col-md-6" id="opt1" style="height: 380px;padding-top: 60px;">
 				
 			</div>
 		</div>
@@ -61,10 +61,23 @@
 	</div>
 </footer>
 <script type="text/javascript">
+$("#form").on('click',function(){
+	var url = $("input").val();
+	$.ajax({
+		url:'/spider/first_app/search',
+		data:{url:url}
+	})
+})
+  // echarts color
+ // http://blog.csdn.net/eastmount/article/details/52823548
 	var option1 = {
     title : {
-        text: '某站点用户访问来源',
-        subtext: '纯属虚构',
+        text: '住客点评',
+        // subtext: '纯属虚构',
+        textStyle: {
+        	fontWeight: 'normal',
+        	color: '#408829'
+        },
         x:'center'
     },
     tooltip : {
@@ -74,7 +87,10 @@
     legend: {
         orient: 'vertical',
         left: 'left',
-        data: ['位置','设施','服务','卫生']
+        data: [{name: '位置', textStyle: {color: '#408829'}},
+        {name: '设施', textStyle: {color: '#408829'}},
+        {name: '服务', textStyle: {color: '#408829'}},
+        {name: '卫生', textStyle: {color: '#408829'}}]
     },
     series : [
         {

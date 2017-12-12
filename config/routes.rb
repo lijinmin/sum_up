@@ -67,7 +67,16 @@ Rails.application.routes.draw do
     resources :first_app do
       collection do
         get 'spider'
+        get 'search'
       end
     end
   end  
+  namespace :es do 
+    resources :first_app do
+      collection do
+        get 'search'
+        get 'depart_info'
+      end
+    end
+  end    
 end

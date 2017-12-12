@@ -1,0 +1,42 @@
+$(".hotel_info").html("<%=j(render :partial=>'hotel_info')%>")
+	var option1 = {
+    title : {
+        text: '住客点评',
+        // subtext: '纯属虚构',
+        textStyle: {
+        	fontWeight: 'normal',
+        	color: '#408829'
+        },
+        x:'center'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    legend: {
+        orient: 'vertical',
+        left: 'left',
+        data: [{name: '位置', textStyle: {color: '#408829'}},
+        {name: '设施', textStyle: {color: '#408829'}},
+        {name: '服务', textStyle: {color: '#408829'}},
+        {name: '卫生', textStyle: {color: '#408829'}}]
+    },
+    series : [
+        {
+            name: '访问来源',
+            type: 'pie',
+            radius : '55%',
+            center: ['50%', '60%'],
+            data:<%=raw @res.client_comment.to_json%>,
+            itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+        }
+    ]
+};
+var myChart1 = echarts.init($('#opt1')[0]);
+myChart1.setOption(option1);
