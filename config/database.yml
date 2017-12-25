@@ -50,7 +50,7 @@ test:
 production:
   <<: *default
   database: weixin_cor_production
-  username: weixin_cor
+  username: root
   password: <%= ENV['DEMO_DATABASE_PASSWORD'] %>
 
 weixin: &weixin
