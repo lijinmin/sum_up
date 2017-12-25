@@ -65,3 +65,6 @@ gem 'kaminari'
 gem 'elasticsearch'
 gem 'elasticsearch-rails'
 gem 'elasticsearch-model'
+# docker
+gem 'unicorn'
+gem 'foreman'
