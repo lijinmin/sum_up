@@ -14,7 +14,8 @@ default: &default
   encoding: utf8
   pool: 5
   username: root
-  password: 
+  password: xiao
+  host: 192.168.1.108
   # socket: /var/run/mysqld/mysqld.sock
 
 development:
@@ -51,7 +52,7 @@ production:
   <<: *default
   database: weixin_cor_production
   username: root
-  password: <%= ENV['DEMO_DATABASE_PASSWORD'] %>
+  password: 
 
 weixin: &weixin
   adapter: mysql2
@@ -61,7 +62,7 @@ weixin: &weixin
   pool: 5
   username: root
   password: 
-  # host: 127.0.0.1
+  host: 127.0.0.1
 # weixin:
 #   development:
 #     <<: *weixin
