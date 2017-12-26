@@ -14,7 +14,8 @@ EXPOSE 3000
 # 设置环境变量
 ENV PORT=3000
 # 启动 web 应用
-CMD ["foreman","start"]
+# CMD ["foreman","start"]
+CMD ["bundle","exec","unicorn_rails","-c","./config/unicorn.rb","-D"," -E" ,"development"]
 # 安装所需的 gems 
 ADD Gemfile /usr/src/app/Gemfile  
 ADD Gemfile.lock /usr/src/app/Gemfile.lock  
