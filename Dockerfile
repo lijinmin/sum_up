@@ -1,27 +1,37 @@
-# 基于镜像 ruby 2.2.0
-FROM ruby:2.2.0
-# 安装所需的库和依赖
-RUN apt-get update && apt-get install -qy nodejs postgresql-client sqlite3 --no-install-recommends libmysqlclient-dev  build-essential && rm -rf /var/lib/apt/lists/*
-# 设置 Rails 版本
-ENV RAILS_VERSION 4.2.7.1
-# 安装 Rails
-RUN gem install rails --version "$RAILS_VERSION"
-# 创建代码所运行的目录 
-RUN mkdir -p /usr/src/app  
-WORKDIR /usr/src/app
-# 使 webserver 可以在容器外面访问
-EXPOSE 3000
-# 设置环境变量
-ENV PORT=3000
-# 启动 web 应用
-# CMD ["foreman","start"]
-CMD ["bundle","exec","unicorn_rails","-c","./config/unicorn.rb","-D"," -E" ,"development"]
-# 安装所需的 gems 
-ADD Gemfile /usr/src/app/Gemfile  
-ADD Gemfile.lock /usr/src/app/Gemfile.lock  
- #  --without development test
-RUN bundle install 
-# 将 rails 项目（和 Dockerfile 同一个目录）添加到项目目录
-ADD ./ /usr/src/app
-# 运行 rake 任务
-RUN RAILS_ENV=development rake db:create db:migrate 
+# 基于镜像 ubuntu
+From registry.cn-hangzhou.aliyuncs.com/ubuntu-14-04/ubuntu14.04
+RUN apt-get update -q
+RUN apt-get install -qy curl libmysqlclient-dev nodejs
+
+# Install rvm, ruby, bundler
+RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+RUN \curl -sSL https://get.rvm.io | bash -s stable
+RUN /bin/bash -l -c "rvm requirements"
+RUN /bin/bash -l -c "rvm install 2.2.0"
+RUN /bin/bash -l -c "gem install bundler --no-ri --no-rdoc"
+
+# Copy the Gemfile and Gemfile.lock into the image. 
+# Temporarily set the working directory to where they are. 
+WORKDIR /tmp 
+ADD ./Gemfile Gemfile
+ADD ./Gemfile.lock Gemfile.lock
+RUN /bin/bash -l -c "bundle install"
+
+# Add rails project to project directory
+ADD ./ /webapps/app
+
+# set WORKDIR
+WORKDIR /webapps/app
+
+# bundle install
+# RUN /bin/bash -l -c "bundle install"
+
+# Add configuration files in repository to filesystem
+ADD scripts/start-server.sh /usr/bin/start-server
+RUN chmod +x /usr/bin/start-server
+
+# Publish port 80
+EXPOSE 5001
+
+# Startup commands
+ENTRYPOINT /usr/bin/start-server

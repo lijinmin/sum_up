@@ -5,38 +5,31 @@ module Rails
     end
   end
 end
-puts Rails.root
-rails_env = ENV["RAILS_ENV"] || "production"
 
-preload_app true
+worker_processes 2
+
 working_directory Rails.root
-pid "#{Rails.root}/tmp/pids/unicorn.pid"
-stderr_path "#{Rails.root}/log/unicorn.log"
-stdout_path "#{Rails.root}/log/unicorn.log"
+
+listen "#{Rails.root}/tmp/sockets/unicorn.sock", :backlog => 64
 
 listen 5001, :tcp_nopush => false
 
-listen "#{Rails.root}/unicorn.sock"
+timeout 30
 
-worker_processes 1
-timeout 180180180180180180180180180180180180180180180180180180
+pid "#{Rails.root}/tmp/pids/unicorn.pid"
 
+stderr_path "#{Rails.root}/log/unicorn.log"
 
-if GC.respond_to?(:copy_on_write_friendly=)
-  GC.copy_on_write_friendly = true
-end
+stdout_path "#{Rails.root}/log/unicorn.log"
 
-before_exec do |server|
-  ENV["BUNDLE_GEMFILE"] = "#{Rails.root}/Gemfile"
-end
+preload_app true
+
+GC.respond_to?(:copy_on_write_friendly=) and
+
+GC.copy_on_write_friendly = true
+
+check_client_connection false
 
 before_fork do |server, worker|
-  old_pid = "#{Rails.root}/tmp/pids/unicorn.pid.oldbin"
-  if File.exists?(old_pid) && server.pid != old_pid
-    begin
-      Process.kill("QUIT", File.read(old_pid).to_i)
-    rescue Errno::ENOENT, Errno::ESRCH
-      puts "Send 'QUIT' signal to unicorn error!"
-    end
-  end
+
 end

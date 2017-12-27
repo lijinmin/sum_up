@@ -4,17 +4,17 @@
 require File.expand_path('../config/application', __FILE__)
 
 Rails.application.load_tasks
-namespace :docker do  
-  desc "Remove docker container"
-  task :clean do
-    sh './clean.sh'
-  end
-  desc "Build Docker image"
-  task :build => [:clean] do
-    sh './build.sh'
-  end
-  desc "Deploy Docker image"
-  task :deploy => [:build] do
-    sh './deploy.sh'
-  end
-end  
+# namespace :docker do  
+#   desc "Remove docker container"
+#   task :clean do
+#     sh './clean.sh'
+#   end
+#   desc "Build Docker image"
+#   task :build => [:clean] do
+#     sh './build.sh'
+#   end
+#   desc "Deploy Docker image"
+#   task :deploy => [:build] do
+#     sh './deploy.sh'
+#   end
+# end  
